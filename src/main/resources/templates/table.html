@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="data:,">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{tableName} - PostgREST UI</title>
+    <script src="https://unpkg.com/htmx.org@2.0.4"
+            integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100" hx-ext="debug">
+<div class="container mx-auto p-4">
+    <div class="flex items-center justify-between mb-6">
+        <h1 class="text-2xl font-bold">{tableName} Table</h1>
+        <a href="/ui" class="text-blue-600 hover:underline">Back to Tables</a>
+    </div>
+
+    <div class="bg-white rounded-lg shadow overflow-hidden">
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200" data-column-count="{columns.size()}">
+                <thead class="bg-gray-50">
+                <tr>
+                    {#for column in columns}
+                        <th scope="col"
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            {column.key}
+                        </th>
+                    {/for}
+                </tr>
+                </thead>
+                <tbody
+                        id="table-body"
+                        class="bg-white divide-y divide-gray-200"
+                        hx-get="/ui/{tableName}/rows?page={currentPage}&pageSize={pageSize}"
+                        hx-trigger="load"
+                        hx-indicator="#loading-indicator"
+                >
+                <!-- Table rows will be loaded here via HTMX -->
+                <tr>
+                    <td colspan="{columns.size()}" class="px-6 py-4 text-center text-sm text-gray-500">
+                        <div id="loading-indicator">
+                            Loading... <span class="animate-pulse">⏳</span>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="pagination-container" class="bg-gray-50 px-6 py-3 flex justify-between items-center">
+            <div class="text-sm text-gray-700">
+                {#if totalCount > 0}
+                    Showing page <span id="current-page">{currentPage}</span> of <span
+                        id="total-pages">{totalPages}</span>
+                    <span class="ml-1">({totalCount} total records)</span>
+                {#else}
+                    No records found
+                {/if}
+            </div>
+
+            <div class="flex space-x-2">
+                <button
+                        id="prev-button"
+                        class="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                        hx-get="{prevPageUrl}"
+                        hx-target="#table-body"
+                        {#if isPrevDisabled}disabled{/if}
+                >
+                    Previous
+                </button>
+
+                <button
+                        id="next-button"
+                        class="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                        hx-get="{nextPageUrl}"
+                        hx-target="#table-body"
+                        {#if isNextDisabled}disabled{/if}
+                >
+                    Next
+                </button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // Add event listener for HTMX errors
+    document.body.addEventListener('htmx:responseError', function (evt) {
+        console.error('HTMX Request Error:', evt.detail);
+        var columnCount = document.querySelector('table').getAttribute('data-column-count');
+        var errorHtml = '<tr><td colspan="' + columnCount + '" class="px-6 py-4 text-center text-sm text-red-500">' +
+            'Error loading data: ' + evt.detail.error +
+            '</td></tr>';
+        document.getElementById('table-body').innerHTML = errorHtml;
+    });
+
+    // Add event listener for HTMX before request
+    document.body.addEventListener('htmx:beforeRequest', function (evt) {
+        console.log('HTMX Request Started:', evt.detail);
+    });
+
+    // Add event listener for HTMX after request
+    document.body.addEventListener('htmx:afterRequest', function (evt) {
+        console.log('HTMX Request Completed:', evt.detail);
+    });
+</script>
+</body>
+</html>

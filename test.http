@@ -1,0 +1,9 @@
+### GET request to example server
+GET https://examples.http-client.intellij.net/get
+    ?generated-in=IntelliJ IDEA
+
+### GET openapi file
+GET http://localhost:3000/
+
+### GET tables metadata
+OPTIONS http://localhost:3000/aliases_payment_method

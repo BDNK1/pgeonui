@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PostgREST UI</title>
+    <link rel="icon" href="data:,">
+    <script src="https://unpkg.com/htmx.org@2.0.4"
+            integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+<div class="container mx-auto p-4">
+    <h1 class="text-2xl font-bold mb-6">PostgREST Tables</h1>
+
+    <div class="bg-white rounded-lg shadow p-6">
+        <h2 class="text-xl font-semibold mb-4">Available Tables</h2>
+        <ul class="space-y-2">
+            {#for table in tables}
+                <li>
+                    <a href="/ui/{table}" class="text-blue-600 hover:underline">{table}</a>
+                </li>
+            {/for}
+        </ul>
+
+        {#if tables.isEmpty}
+            <p class="text-gray-500 italic">No tables found.</p>
+        {/if}
+    </div>
+</div>
+</body>
+</html>

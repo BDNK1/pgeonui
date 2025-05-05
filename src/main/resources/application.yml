@@ -1,0 +1,23 @@
+quarkus:
+  http:
+    port: 8082
+    cors: true
+    access-log:
+      enabled: true
+    client:
+      read-timeout: 30S
+
+  live-reload:
+    instrumentation: true
+  
+  qute:
+    suffixes: html
+    content-types:
+      html: text/html;charset=utf-8
+  
+  application:
+    name: PostgREST UI
+    version: 1.0.0
+  
+  jackson:
+    fail-on-unknown-properties: false

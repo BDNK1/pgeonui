@@ -1,0 +1,33 @@
+<div id="pagination-container" class="bg-gray-50 px-6 py-3 flex justify-between items-center" hx-swap-oob="true">
+    <div class="text-sm text-gray-700">
+        {#if totalCount > 0}
+            Showing page <span id="current-page">{currentPage}</span> of <span
+                id="total-pages">{totalPages}</span>
+            <span class="ml-1">({totalCount} total records)</span>
+        {#else}
+            No records found
+        {/if}
+    </div>
+
+    <div class="flex space-x-2">
+        <button
+                id="prev-button"
+                class="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                hx-get="{prevPageUrl}"
+                hx-target="#table-body"
+                {#if isPrevDisabled}disabled{/if}
+        >
+            Previous
+        </button>
+
+        <button
+                id="next-button"
+                class="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                hx-get="{nextPageUrl}"
+                hx-target="#table-body"
+                {#if isNextDisabled}disabled{/if}
+        >
+            Next
+        </button>
+    </div>
+</div>

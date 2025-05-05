@@ -1,0 +1,1056 @@
+
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "",
+    "title": "standard public schema",
+    "version": "12.2.8"
+  },
+  "host": "0.0.0.0:3000",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json",
+    "application/vnd.pgrst.object+json;nulls=stripped",
+    "application/vnd.pgrst.object+json",
+    "text/csv"
+  ],
+  "produces": [
+    "application/json",
+    "application/vnd.pgrst.object+json;nulls=stripped",
+    "application/vnd.pgrst.object+json",
+    "text/csv"
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "produces": [
+          "application/openapi+json",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "summary": "OpenAPI description (this document)",
+        "tags": [
+          "Introspection"
+        ]
+      }
+    },
+    "/databasechangelog": {
+      "get": {
+        "parameters": [
+          {
+            "$ref": "#/parameters/rowFilter.databasechangelog.id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.databasechangelog.author"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.databasechangelog.filename"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.databasechangelog.dateexecuted"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.databasechangelog.orderexecuted"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.databasechangelog.exectype"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.databasechangelog.md5sum"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.databasechangelog.description"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.databasechangelog.comments"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.databasechangelog.tag"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.databasechangelog.liquibase"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.databasechangelog.contexts"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.databasechangelog.labels"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.databasechangelog.deployment_id"
+          },
+          {
+            "$ref": "#/parameters/select"
+          },
+          {
+            "$ref": "#/parameters/order"
+          },
+          {
+            "$ref": "#/parameters/range"
+          },
+          {
+            "$ref": "#/parameters/rangeUnit"
+          },
+          {
+            "$ref": "#/parameters/offset"
+          },
+          {
+            "$ref": "#/parameters/limit"
+          },
+          {
+            "$ref": "#/parameters/preferCount"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/databasechangelog"
+              },
+              "type": "array"
+            }
+          },
+          "206": {
+            "description": "Partial Content"
+          }
+        },
+        "tags": [
+          "databasechangelog"
+        ]
+      },
+      "post": {
+        "parameters": [
+          {
+            "$ref": "#/parameters/body.databasechangelog"
+          },
+          {
+            "$ref": "#/parameters/select"
+          },
+          {
+            "$ref": "#/parameters/preferPost"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        },
+        "tags": [
+          "databasechangelog"
+        ]
+      },
+      "delete": {
+        "parameters": [
+          {
+            "$ref": "#/parameters/rowFilter.databasechangelog.id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.databasechangelog.author"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.databasechangelog.filename"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.databasechangelog.dateexecuted"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.databasechangelog.orderexecuted"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.databasechangelog.exectype"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.databasechangelog.md5sum"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.databasechangelog.description"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.databasechangelog.comments"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.databasechangelog.tag"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.databasechangelog.liquibase"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.databasechangelog.contexts"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.databasechangelog.labels"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.databasechangelog.deployment_id"
+          },
+          {
+            "$ref": "#/parameters/preferReturn"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        },
+        "tags": [
+          "databasechangelog"
+        ]
+      },
+      "patch": {
+        "parameters": [
+          {
+            "$ref": "#/parameters/rowFilter.databasechangelog.id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.databasechangelog.author"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.databasechangelog.filename"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.databasechangelog.dateexecuted"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.databasechangelog.orderexecuted"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.databasechangelog.exectype"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.databasechangelog.md5sum"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.databasechangelog.description"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.databasechangelog.comments"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.databasechangelog.tag"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.databasechangelog.liquibase"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.databasechangelog.contexts"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.databasechangelog.labels"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.databasechangelog.deployment_id"
+          },
+          {
+            "$ref": "#/parameters/body.databasechangelog"
+          },
+          {
+            "$ref": "#/parameters/preferReturn"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        },
+        "tags": [
+          "databasechangelog"
+        ]
+      }
+    },
+    "/aliases_payment_method": {
+      "get": {
+        "parameters": [
+          {
+            "$ref": "#/parameters/rowFilter.aliases_payment_method.id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.aliases_payment_method.uuid"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.aliases_payment_method.alias"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.aliases_payment_method.gateway_name"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.aliases_payment_method.payment_method"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.aliases_payment_method.attributes"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.aliases_payment_method.created_at"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.aliases_payment_method.created_by"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.aliases_payment_method.updated_at"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.aliases_payment_method.updated_by"
+          },
+          {
+            "$ref": "#/parameters/select"
+          },
+          {
+            "$ref": "#/parameters/order"
+          },
+          {
+            "$ref": "#/parameters/range"
+          },
+          {
+            "$ref": "#/parameters/rangeUnit"
+          },
+          {
+            "$ref": "#/parameters/offset"
+          },
+          {
+            "$ref": "#/parameters/limit"
+          },
+          {
+            "$ref": "#/parameters/preferCount"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/aliases_payment_method"
+              },
+              "type": "array"
+            }
+          },
+          "206": {
+            "description": "Partial Content"
+          }
+        },
+        "tags": [
+          "aliases_payment_method"
+        ]
+      },
+      "post": {
+        "parameters": [
+          {
+            "$ref": "#/parameters/body.aliases_payment_method"
+          },
+          {
+            "$ref": "#/parameters/select"
+          },
+          {
+            "$ref": "#/parameters/preferPost"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        },
+        "tags": [
+          "aliases_payment_method"
+        ]
+      },
+      "delete": {
+        "parameters": [
+          {
+            "$ref": "#/parameters/rowFilter.aliases_payment_method.id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.aliases_payment_method.uuid"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.aliases_payment_method.alias"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.aliases_payment_method.gateway_name"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.aliases_payment_method.payment_method"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.aliases_payment_method.attributes"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.aliases_payment_method.created_at"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.aliases_payment_method.created_by"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.aliases_payment_method.updated_at"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.aliases_payment_method.updated_by"
+          },
+          {
+            "$ref": "#/parameters/preferReturn"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        },
+        "tags": [
+          "aliases_payment_method"
+        ]
+      },
+      "patch": {
+        "parameters": [
+          {
+            "$ref": "#/parameters/rowFilter.aliases_payment_method.id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.aliases_payment_method.uuid"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.aliases_payment_method.alias"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.aliases_payment_method.gateway_name"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.aliases_payment_method.payment_method"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.aliases_payment_method.attributes"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.aliases_payment_method.created_at"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.aliases_payment_method.created_by"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.aliases_payment_method.updated_at"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.aliases_payment_method.updated_by"
+          },
+          {
+            "$ref": "#/parameters/body.aliases_payment_method"
+          },
+          {
+            "$ref": "#/parameters/preferReturn"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        },
+        "tags": [
+          "aliases_payment_method"
+        ]
+      }
+    },
+    "/databasechangeloglock": {
+      "get": {
+        "parameters": [
+          {
+            "$ref": "#/parameters/rowFilter.databasechangeloglock.id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.databasechangeloglock.locked"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.databasechangeloglock.lockgranted"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.databasechangeloglock.lockedby"
+          },
+          {
+            "$ref": "#/parameters/select"
+          },
+          {
+            "$ref": "#/parameters/order"
+          },
+          {
+            "$ref": "#/parameters/range"
+          },
+          {
+            "$ref": "#/parameters/rangeUnit"
+          },
+          {
+            "$ref": "#/parameters/offset"
+          },
+          {
+            "$ref": "#/parameters/limit"
+          },
+          {
+            "$ref": "#/parameters/preferCount"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/databasechangeloglock"
+              },
+              "type": "array"
+            }
+          },
+          "206": {
+            "description": "Partial Content"
+          }
+        },
+        "tags": [
+          "databasechangeloglock"
+        ]
+      },
+      "post": {
+        "parameters": [
+          {
+            "$ref": "#/parameters/body.databasechangeloglock"
+          },
+          {
+            "$ref": "#/parameters/select"
+          },
+          {
+            "$ref": "#/parameters/preferPost"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        },
+        "tags": [
+          "databasechangeloglock"
+        ]
+      },
+      "delete": {
+        "parameters": [
+          {
+            "$ref": "#/parameters/rowFilter.databasechangeloglock.id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.databasechangeloglock.locked"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.databasechangeloglock.lockgranted"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.databasechangeloglock.lockedby"
+          },
+          {
+            "$ref": "#/parameters/preferReturn"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        },
+        "tags": [
+          "databasechangeloglock"
+        ]
+      },
+      "patch": {
+        "parameters": [
+          {
+            "$ref": "#/parameters/rowFilter.databasechangeloglock.id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.databasechangeloglock.locked"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.databasechangeloglock.lockgranted"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.databasechangeloglock.lockedby"
+          },
+          {
+            "$ref": "#/parameters/body.databasechangeloglock"
+          },
+          {
+            "$ref": "#/parameters/preferReturn"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        },
+        "tags": [
+          "databasechangeloglock"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "databasechangelog": {
+      "required": [
+        "id",
+        "author",
+        "filename",
+        "dateexecuted",
+        "orderexecuted",
+        "exectype"
+      ],
+      "properties": {
+        "id": {
+          "format": "character varying",
+          "maxLength": 255,
+          "type": "string"
+        },
+        "author": {
+          "format": "character varying",
+          "maxLength": 255,
+          "type": "string"
+        },
+        "filename": {
+          "format": "character varying",
+          "maxLength": 255,
+          "type": "string"
+        },
+        "dateexecuted": {
+          "format": "timestamp without time zone",
+          "type": "string"
+        },
+        "orderexecuted": {
+          "format": "integer",
+          "type": "integer"
+        },
+        "exectype": {
+          "format": "character varying",
+          "maxLength": 10,
+          "type": "string"
+        },
+        "md5sum": {
+          "format": "character varying",
+          "maxLength": 35,
+          "type": "string"
+        },
+        "description": {
+          "format": "character varying",
+          "maxLength": 255,
+          "type": "string"
+        },
+        "comments": {
+          "format": "character varying",
+          "maxLength": 255,
+          "type": "string"
+        },
+        "tag": {
+          "format": "character varying",
+          "maxLength": 255,
+          "type": "string"
+        },
+        "liquibase": {
+          "format": "character varying",
+          "maxLength": 20,
+          "type": "string"
+        },
+        "contexts": {
+          "format": "character varying",
+          "maxLength": 255,
+          "type": "string"
+        },
+        "labels": {
+          "format": "character varying",
+          "maxLength": 255,
+          "type": "string"
+        },
+        "deployment_id": {
+          "format": "character varying",
+          "maxLength": 10,
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "aliases_payment_method": {
+      "required": [
+        "id",
+        "uuid",
+        "alias",
+        "gateway_name",
+        "payment_method",
+        "created_at"
+      ],
+      "properties": {
+        "id": {
+          "description": "Note:\nThis is a Primary Key.<pk/>",
+          "format": "bigint",
+          "type": "integer"
+        },
+        "uuid": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "alias": {
+          "format": "character varying",
+          "maxLength": 128,
+          "type": "string"
+        },
+        "gateway_name": {
+          "format": "character varying",
+          "maxLength": 128,
+          "type": "string"
+        },
+        "payment_method": {
+          "format": "character varying",
+          "maxLength": 128,
+          "type": "string"
+        },
+        "attributes": {
+          "format": "jsonb"
+        },
+        "created_at": {
+          "format": "timestamp without time zone",
+          "type": "string"
+        },
+        "created_by": {
+          "format": "character varying",
+          "maxLength": 128,
+          "type": "string"
+        },
+        "updated_at": {
+          "format": "timestamp without time zone",
+          "type": "string"
+        },
+        "updated_by": {
+          "format": "character varying",
+          "maxLength": 128,
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "databasechangeloglock": {
+      "required": [
+        "id",
+        "locked"
+      ],
+      "properties": {
+        "id": {
+          "description": "Note:\nThis is a Primary Key.<pk/>",
+          "format": "integer",
+          "type": "integer"
+        },
+        "locked": {
+          "format": "boolean",
+          "type": "boolean"
+        },
+        "lockgranted": {
+          "format": "timestamp without time zone",
+          "type": "string"
+        },
+        "lockedby": {
+          "format": "character varying",
+          "maxLength": 255,
+          "type": "string"
+        }
+      },
+      "type": "object"
+    }
+  },
+  "parameters": {
+    "preferParams": {
+      "name": "Prefer",
+      "description": "Preference",
+      "required": false,
+      "enum": [
+        "params=single-object"
+      ],
+      "in": "header",
+      "type": "string"
+    },
+    "preferReturn": {
+      "name": "Prefer",
+      "description": "Preference",
+      "required": false,
+      "enum": [
+        "return=representation",
+        "return=minimal",
+        "return=none"
+      ],
+      "in": "header",
+      "type": "string"
+    },
+    "preferCount": {
+      "name": "Prefer",
+      "description": "Preference",
+      "required": false,
+      "enum": [
+        "count=none"
+      ],
+      "in": "header",
+      "type": "string"
+    },
+    "preferPost": {
+      "name": "Prefer",
+      "description": "Preference",
+      "required": false,
+      "enum": [
+        "return=representation",
+        "return=minimal",
+        "return=none",
+        "resolution=ignore-duplicates",
+        "resolution=merge-duplicates"
+      ],
+      "in": "header",
+      "type": "string"
+    },
+    "select": {
+      "name": "select",
+      "description": "Filtering Columns",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "on_conflict": {
+      "name": "on_conflict",
+      "description": "On Conflict",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "order": {
+      "name": "order",
+      "description": "Ordering",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "range": {
+      "name": "Range",
+      "description": "Limiting and Pagination",
+      "required": false,
+      "in": "header",
+      "type": "string"
+    },
+    "rangeUnit": {
+      "name": "Range-Unit",
+      "description": "Limiting and Pagination",
+      "required": false,
+      "default": "items",
+      "in": "header",
+      "type": "string"
+    },
+    "offset": {
+      "name": "offset",
+      "description": "Limiting and Pagination",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "limit": {
+      "name": "limit",
+      "description": "Limiting and Pagination",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "body.databasechangelog": {
+      "name": "databasechangelog",
+      "description": "databasechangelog",
+      "required": false,
+      "in": "body",
+      "schema": {
+        "$ref": "#/definitions/databasechangelog"
+      }
+    },
+    "rowFilter.databasechangelog.id": {
+      "name": "id",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.databasechangelog.author": {
+      "name": "author",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.databasechangelog.filename": {
+      "name": "filename",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.databasechangelog.dateexecuted": {
+      "name": "dateexecuted",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.databasechangelog.orderexecuted": {
+      "name": "orderexecuted",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.databasechangelog.exectype": {
+      "name": "exectype",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.databasechangelog.md5sum": {
+      "name": "md5sum",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.databasechangelog.description": {
+      "name": "description",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.databasechangelog.comments": {
+      "name": "comments",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.databasechangelog.tag": {
+      "name": "tag",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.databasechangelog.liquibase": {
+      "name": "liquibase",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.databasechangelog.contexts": {
+      "name": "contexts",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.databasechangelog.labels": {
+      "name": "labels",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.databasechangelog.deployment_id": {
+      "name": "deployment_id",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "body.aliases_payment_method": {
+      "name": "aliases_payment_method",
+      "description": "aliases_payment_method",
+      "required": false,
+      "in": "body",
+      "schema": {
+        "$ref": "#/definitions/aliases_payment_method"
+      }
+    },
+    "rowFilter.aliases_payment_method.id": {
+      "name": "id",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.aliases_payment_method.uuid": {
+      "name": "uuid",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.aliases_payment_method.alias": {
+      "name": "alias",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.aliases_payment_method.gateway_name": {
+      "name": "gateway_name",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.aliases_payment_method.payment_method": {
+      "name": "payment_method",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.aliases_payment_method.attributes": {
+      "name": "attributes",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.aliases_payment_method.created_at": {
+      "name": "created_at",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.aliases_payment_method.created_by": {
+      "name": "created_by",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.aliases_payment_method.updated_at": {
+      "name": "updated_at",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.aliases_payment_method.updated_by": {
+      "name": "updated_by",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "body.databasechangeloglock": {
+      "name": "databasechangeloglock",
+      "description": "databasechangeloglock",
+      "required": false,
+      "in": "body",
+      "schema": {
+        "$ref": "#/definitions/databasechangeloglock"
+      }
+    },
+    "rowFilter.databasechangeloglock.id": {
+      "name": "id",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.databasechangeloglock.locked": {
+      "name": "locked",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.databasechangeloglock.lockgranted": {
+      "name": "lockgranted",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.databasechangeloglock.lockedby": {
+      "name": "lockedby",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    }
+  },
+  "externalDocs": {
+    "description": "PostgREST Documentation",
+    "url": "https://postgrest.org/en/v12/references/api.html"
+  }
+}
