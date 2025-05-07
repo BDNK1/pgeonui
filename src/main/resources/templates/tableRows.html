@@ -8,12 +8,12 @@
     {#for row in data}
         <tr class="hover:bg-gray-50">
             {#for column in columns}
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                <td class="px-6 py-4 text-sm text-gray-500">
                     {#if row.containsKey(column.key) && row.get(column.key) != null}
                         {#if column.value.format == 'jsonb' || column.value.format == 'json'}
                             <pre class="text-xs overflow-x-auto max-w-md">{row.get(column.key)}</pre>
                         {#else}
-                            {row.get(column.key)}
+                            <div class="truncate max-w-md" title="{row.get(column.key)}">{row.get(column.key)}</div>
                         {/if}
                     {#else}
                         <span class="text-gray-300">NULL</span>

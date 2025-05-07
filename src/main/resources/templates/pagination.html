@@ -1,11 +1,35 @@
-<div id="pagination-container" class="bg-gray-50 px-6 py-3 flex justify-between items-center" hx-swap-oob="true">
-    <div class="text-sm text-gray-700">
+<div id="pagination-container" class="bg-gray-50 px-6 py-3 flex justify-between items-center sticky bottom-0" hx-swap-oob="true">
+    <div class="flex items-center space-x-2 flex-wrap">
         {#if totalCount > 0}
-            Showing page <span id="current-page">{currentPage}</span> of <span
-                id="total-pages">{totalPages}</span>
-            <span class="ml-1">({totalCount} total records)</span>
+            <span class="text-sm text-gray-700">Showing page</span>
+            <input
+                type="text"
+                id="page-input"
+                name="page" 
+                class="px-2 py-1 text-sm bg-gray-200 text-gray-700 rounded w-16"
+                value="{currentPage}"
+                aria-label="Current page"
+            >
+            <span class="text-sm text-gray-700">of <span id="total-pages">{totalPages}</span></span>
+            <span class="text-sm text-gray-700">({totalCount} total records)</span>
+            <span class="text-sm text-gray-700 ml-4">Page size:</span>
+            <input
+                type="text"
+                id="page-size-input"
+                name="pageSize" 
+                class="px-2 py-1 text-sm bg-gray-200 text-gray-700 rounded w-16"
+                value="{pageSize}"
+                aria-label="Page size"
+            >
+            <button
+                class="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
+                hx-get="/ui/{tableName}/rows" 
+                hx-target="#table-body"
+                hx-include="[name='page'],[name='pageSize']">
+                Apply
+            </button>
         {#else}
-            No records found
+            <span class="text-sm text-gray-700">No records found</span>
         {/if}
     </div>
 

@@ -35,7 +35,9 @@ object Templates {
 
     @JvmStatic
     external fun pagination(
+        tableName: String,
         currentPage: Int,
+        pageSize: Int,
         totalPages: Int,
         totalCount: Int,
         prevPageUrl: String,

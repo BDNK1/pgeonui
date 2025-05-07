@@ -93,7 +93,9 @@ class TableResource {
             val tableRowsHtml = Templates.tableRows(data, columns).render()
             val paginationHtml =
                 Templates.pagination(
+                    tableName,
                     page,
+                    pageSize,
                     totalPages,
                     count,
                     prevPageUrl,
