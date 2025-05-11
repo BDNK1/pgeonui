@@ -6,6 +6,10 @@ quarkus:
       enabled: true
     client:
       read-timeout: 30S
+  container-image:
+    build: true
+    name: pgeonui
+    tag: latest
 
   live-reload:
     instrumentation: true
@@ -21,3 +25,7 @@ quarkus:
   
   jackson:
     fail-on-unknown-properties: false
+
+postgrest:
+  url: ${POSTGREST_URL:http://localhost:3000/}
+

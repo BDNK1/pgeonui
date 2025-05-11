@@ -1,12 +1,25 @@
 version: '3.8'
 
 services:
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_DB: test-db
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5433:5432"
+    networks:
+      - pgeonui-network
+    volumes:
+      - test-db-data:/var/lib/postgresql/data
+      - ./initdb:/docker-entrypoint-initdb.d
   postgrest:
     image: postgrest/postgrest
     ports:
       - "3000:3000"
     environment:
-      PGRST_DB_URI: postgres://root:password@host.docker.internal:5433/aliases_service
+      PGRST_DB_URI: postgres://root:password@host.docker.internal:5433/test-db
       PGRST_DB_SCHEMA: public
       PGRST_DB_ANON_ROLE: root
       PGRST_SERVER_PORT: 3000
@@ -22,3 +35,7 @@ services:
 networks:
   pgeonui-network:
     driver: bridge
+
+volumes:
+  test-db-data:
+    driver: local
