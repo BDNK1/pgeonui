@@ -19,7 +19,7 @@ services:
     ports:
       - "3000:3000"
     environment:
-      PGRST_DB_URI: postgres://root:password@host.docker.internal:5433/test-db
+      PGRST_DB_URI: postgres://root:password@postgres:5432/test-db
       PGRST_DB_SCHEMA: public
       PGRST_DB_ANON_ROLE: root
       PGRST_SERVER_PORT: 3000
