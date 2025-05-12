@@ -1,20 +1,28 @@
 package com.pgeonui
 
+import com.pgeonui.service.Service
+import io.quarkus.test.InjectMock
 import io.quarkus.test.junit.QuarkusTest
 import io.restassured.RestAssured.given
-import org.hamcrest.CoreMatchers.`is`
 import org.junit.jupiter.api.Test
+import org.mockito.kotlin.whenever
 
 @QuarkusTest
 class GreetingResourceTest {
 
+    @InjectMock
+    lateinit var service: Service
+
+    // Removed the inner MockService class to rely solely on @InjectMock for 'service'
+
     @Test
     fun testHelloEndpoint() {
-        given()
-          .`when`().get("/hello")
-          .then()
-             .statusCode(200)
-             .body(`is`("Hello from Quarkus REST"))
-    }
 
+        whenever(service.getAvailableTables()).thenReturn(listOf("table1", "table2"))
+
+        given()
+            .`when`().get("/ui")
+            .then()
+            .statusCode(200)
+    }
 }

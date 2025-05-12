@@ -7,6 +7,7 @@ import com.pgeonui.model.Property
 import io.quarkus.logging.Log
 import jakarta.enterprise.context.ApplicationScoped
 import jakarta.inject.Inject
+import org.eclipse.microprofile.config.inject.ConfigProperty
 import java.net.URI
 import java.net.http.HttpClient
 import java.net.http.HttpRequest
@@ -22,11 +23,15 @@ class Service {
     @Inject
     private lateinit var objectMapper: ObjectMapper
 
+    @Inject
+    @ConfigProperty(name = "postgrest.url")
+    private lateinit var postgrestUrl: String
+
     private var openApiSpec: OpenApi? = null
 
     fun fetchTableData(tableName: String, page: Int = 1, pageSize: Int = 10): Map<String, Any> {
         val offset = (page - 1) * pageSize
-        val url = "http://localhost:3000/$tableName"
+        val url = "$postgrestUrl$tableName"
 
         val requestBuilder = HttpRequest.newBuilder()
             .uri(URI.create(url))
@@ -121,10 +126,10 @@ class Service {
     }
 
     private fun getOpenApiSpec(): OpenApi {
-        Log.info("Fetching OpenAPI spec from http://localhost:3000/")
+        Log.info("Fetching OpenAPI spec ")
         if (openApiSpec == null) {
             val request = HttpRequest.newBuilder()
-                .uri(URI.create("http://localhost:3000/"))
+                .uri(URI.create(postgrestUrl))
                 .header("accept", "application/json")
                 .build()
 
