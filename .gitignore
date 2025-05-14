@@ -34,6 +34,11 @@ nb-configuration.xml
 
 # Local environment
 .env
+terraform/terraform.tfvars
+terraform/terraform.tfstate
+terraform/terraform.tfstate.backup
+.terraform/
+.terraform.lock.hcl
 
 # Plugin directory
 /.quarkus/cli/plugins/

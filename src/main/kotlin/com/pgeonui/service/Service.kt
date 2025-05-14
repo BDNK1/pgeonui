@@ -31,7 +31,7 @@ class Service {
 
     fun fetchTableData(tableName: String, page: Int = 1, pageSize: Int = 10): Map<String, Any> {
         val offset = (page - 1) * pageSize
-        val url = "$postgrestUrl$tableName"
+        val url = "$postgrestUrl/$tableName"
 
         val requestBuilder = HttpRequest.newBuilder()
             .uri(URI.create(url))

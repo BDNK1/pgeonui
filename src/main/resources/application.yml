@@ -13,19 +13,18 @@ quarkus:
 
   live-reload:
     instrumentation: true
-  
+
   qute:
     suffixes: html
     content-types:
       html: text/html;charset=utf-8
-  
+
   application:
     name: PostgREST UI
     version: 1.0.0
-  
+
   jackson:
     fail-on-unknown-properties: false
 
 postgrest:
-  url: ${POSTGREST_URL:http://localhost:3000/}
-
+  url: ${POSTGREST_URL:http://localhost:3000}
