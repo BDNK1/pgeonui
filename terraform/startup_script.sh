@@ -27,6 +27,7 @@ chmod +x /usr/local/bin/docker-compose
 # Create app directory and initialization directories
 mkdir -p /opt/pgeonui
 mkdir -p /opt/pgeonui/initdb
+mkdir -p /opt/pgeonui/fluentd # Create fluentd config directory
 
 # Create docker-compose.yml from template
 cat > /opt/pgeonui/docker-compose.yml << 'EOF'
@@ -36,6 +37,16 @@ EOF
 # Create init.sql in the initdb directory
 cat > /opt/pgeonui/initdb/init.sql << 'EOF'
 ${init_sql_content}
+EOF
+
+# Create fluentd.conf in the fluentd directory
+cat > /opt/pgeonui/fluentd/fluent.conf << 'EOF'
+${fluentd_conf_content}
+EOF
+
+# Create fluentd dockerfile in the fluentd directory
+cat > /opt/pgeonui/fluentd/Dockerfile << 'EOF'
+${fluentd_dockerfile_content}
 EOF
 
 # Create .env file with environment variables

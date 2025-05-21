@@ -12,7 +12,7 @@ variable "region" {
 variable "zone" {
   description = "GCP zone"
   type        = string
-  default     = "europe-central2-b"
+  default     = "europe-central2-a"
 }
 
 variable "credentials_file" {
