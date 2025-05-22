@@ -1,0 +1,11 @@
+apiVersion: 1
+
+providers:
+  - name: 'Pgeonui Dashboards'
+    orgId: 1
+    folder: 'Pgeonui'
+    type: file
+    disableDeletion: false
+    editable: true
+    options:
+      path: /var/lib/grafana/dashboards

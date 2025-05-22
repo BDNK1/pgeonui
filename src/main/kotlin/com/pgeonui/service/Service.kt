@@ -4,6 +4,9 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import com.pgeonui.model.OpenApi
 import com.pgeonui.model.Property
+import io.micrometer.core.annotation.Timed
+import io.micrometer.core.instrument.MeterRegistry
+import io.micrometer.core.instrument.Timer
 import io.quarkus.logging.Log
 import jakarta.enterprise.context.ApplicationScoped
 import jakarta.inject.Inject
@@ -19,6 +22,9 @@ class Service {
     private val httpClient: HttpClient = HttpClient.newBuilder()
         .version(HttpClient.Version.HTTP_2)
         .build()
+
+    @Inject
+    private lateinit var registry: MeterRegistry
 
     @Inject
     private lateinit var objectMapper: ObjectMapper
@@ -42,9 +48,15 @@ class Service {
 
         println("Sending request to: $url with range: $offset-${offset + pageSize - 1}")
 
+        val timerSample = Timer.start(registry)
+        val timerName = "postgrest.table.fetch.time"
+        val tags = listOf("tableName", tableName)
+
         try {
             val response = httpClient.send(requestBuilder.build(), HttpResponse.BodyHandlers.ofString())
             Log.info("Response status: ${response.statusCode()}")
+
+            timerSample.stop(registry.timer(timerName, *tags.toTypedArray(), "status", response.statusCode().toString()))
 
             if (response.statusCode() >= 400) {
                 throw RuntimeException("PostgREST server returned error status: ${response.statusCode()}, body: ${response.body()}")
@@ -68,7 +80,6 @@ class Service {
                     "count" to total,
                     "totalPages" to totalPages
                 )
-
             }
 
             val data = objectMapper.readValue<List<Map<String, Any>>>(responseBody)
@@ -83,6 +94,7 @@ class Service {
                 "totalPages" to totalPages
             )
         } catch (e: Exception) {
+            timerSample.stop(registry.timer(timerName, *tags.toTypedArray(), "status", "error", "exception", e.javaClass.simpleName))
             e.printStackTrace()
             throw RuntimeException("Error fetching data from PostgREST for table '$tableName': ${e.message}", e)
         }
@@ -125,7 +137,8 @@ class Service {
         return properties
     }
 
-    private fun getOpenApiSpec(): OpenApi {
+    @Timed(value = "postgrest.openapi.fetch.time")
+    fun getOpenApiSpec(): OpenApi {
         Log.info("Fetching OpenAPI spec ")
         if (openApiSpec == null) {
             val request = HttpRequest.newBuilder()

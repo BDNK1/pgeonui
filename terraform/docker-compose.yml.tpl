@@ -60,6 +60,8 @@ services:
       - POSTGRES_HOST=postgres
       - POSTGRES_PORT=5432
       - POSTGREST_URL=http://postgrest:3000
+    labels:
+      com.centurylinklabs.watchtower.enable: "true"
     logging:
       driver: "fluentd"
       options:
@@ -69,9 +71,11 @@ services:
   watchtower:
     image: containrrr/watchtower
     restart: unless-stopped
+    depends_on:
+      - pgeonui
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-    command: --interval 60 --cleanup pgeonui
+    command: --interval 60 --cleanup --label-enable
     environment:
       - WATCHTOWER_CLEANUP=true
       - WATCHTOWER_INCLUDE_STOPPED=true
@@ -87,8 +91,6 @@ services:
       - elasticsearch-data:/usr/share/elasticsearch/data
     ports:
       - "9200:9200"
-    networks:
-      - default
     healthcheck:
       test: ["CMD-SHELL", "curl -s --fail http://localhost:9200/_cluster/health?wait_for_status=yellow&timeout=5s || exit 1"]
       interval: 30s
@@ -105,8 +107,6 @@ services:
     depends_on:
       elasticsearch:
         condition: service_healthy
-    networks:
-      - default
 
   fluentd:
     build:
@@ -121,12 +121,42 @@ services:
     depends_on:
       elasticsearch:
         condition: service_healthy
-    networks:
-      - default
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus-data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "3030:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_USERS_ALLOW_SIGN_UP=false
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./grafana/provisioning:/etc/grafana/provisioning
+      - ./grafana/dashboards:/var/lib/grafana/dashboards
+    depends_on:
+      - prometheus
 
 volumes:
   postgres-data:
   elasticsearch-data:
+  prometheus-data:
+  grafana-data:
 
 networks:
   default:

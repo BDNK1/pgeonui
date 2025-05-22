@@ -27,7 +27,11 @@ chmod +x /usr/local/bin/docker-compose
 # Create app directory and initialization directories
 mkdir -p /opt/pgeonui
 mkdir -p /opt/pgeonui/initdb
-mkdir -p /opt/pgeonui/fluentd # Create fluentd config directory
+mkdir -p /opt/pgeonui/fluentd
+mkdir -p /opt/pgeonui/grafana/dashboards
+mkdir -p /opt/pgeonui/grafana/provisioning/dashboards
+mkdir -p /opt/pgeonui/grafana/provisioning/datasources
+mkdir -p /opt/pgeonui/prometheus
 
 # Create docker-compose.yml from template
 cat > /opt/pgeonui/docker-compose.yml << 'EOF'
@@ -47,6 +51,27 @@ EOF
 # Create fluentd dockerfile in the fluentd directory
 cat > /opt/pgeonui/fluentd/Dockerfile << 'EOF'
 ${fluentd_dockerfile_content}
+EOF
+
+# Create grafana and prometheus configs
+cat > /opt/pgeonui/prometheus/prometheus.yml << 'EOF'
+${prometheus_config_content}
+EOF
+
+cat > /opt/pgeonui/grafana/dashboards/system_health_dashboard.json << 'EOF'
+${grafana_dashboards_system_health_dashboard_content}
+EOF
+
+cat > /opt/pgeonui/grafana/dashboards/request_metrics_dashboard.json << 'EOF'
+${grafana_dashboards_request_metrics_dashboard_content}
+EOF
+
+cat > /opt/pgeonui/grafana/provisioning/dashboards/dashboards.yml << 'EOF'
+${grafana_dashboards_content}
+EOF
+
+cat > /opt/pgeonui/grafana/provisioning/datasources/prometheus.yml << 'EOF'
+${grafana_datasources_content}
 EOF
 
 # Create .env file with environment variables

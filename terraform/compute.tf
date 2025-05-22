@@ -38,16 +38,17 @@ resource "google_compute_instance" "app_instance" {
       postgres_password = var.postgres_password
       postgres_db       = var.postgres_db
       app_docker_image  = var.app_docker_image
-      instance_name     = var.instance_name # Pass instance_name to docker-compose template
+      instance_name     = var.instance_name
     })
     init_sql_content = file("${path.module}/init.sql.tpl")
-    fluentd_conf_content = file("${path.module}/fluentd/fluent.conf") # Pass fluentd.conf content
-    fluentd_dockerfile_content = file("${path.module}/fluentd/Dockerfile") # Pass fluentd.conf content
+    fluentd_conf_content = file("${path.module}/fluentd/fluent.conf")
+    fluentd_dockerfile_content = file("${path.module}/fluentd/Dockerfile")
+    prometheus_config_content = file("${path.module}/prometheus/prometheus.yml")
+    grafana_dashboards_system_health_dashboard_content = file("${path.module}/grafana/dashboards/system_health_dashboard.json")
+    grafana_dashboards_request_metrics_dashboard_content = file("${path.module}/grafana/dashboards/request_metrics_dashboard.json")
+    grafana_dashboards_content = file("${path.module}/grafana/provisioning/dashboards/dashboards.yml")
+    grafana_datasources_content = file("${path.module}/grafana/provisioning/datasources/prometheus.yml")
   })
-
-  # No provisioners - all setup is done via startup script
-
-  # No dependency on service account creation since we're using an existing one
 }
 
 # Firewall rule to allow external access to the application
@@ -57,7 +58,7 @@ resource "google_compute_firewall" "app_firewall" {
 
   allow {
     protocol = "tcp"
-    ports    = ["22", "80", "5601"]
+    ports    = ["22", "80", "5601", "3030", "9090"]
   }
 
   source_ranges = ["0.0.0.0/0"]
